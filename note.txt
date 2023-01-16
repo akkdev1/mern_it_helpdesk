@@ -1,3 +1,5 @@
-dsafsdaf
-change 2
-change 3
+๊Up ไฟล์ไป Git 
+-----------
+git branch -M main
+git remote add origin https://github.com/akkdev1/mern_it_helpdesk.git
+git push -u origin main
