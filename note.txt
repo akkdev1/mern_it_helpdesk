@@ -3,3 +3,8 @@
 git branch -M main
 git remote add origin https://github.com/akkdev1/mern_it_helpdesk.git
 git push -u origin main
+
+------------
+git add .
+git commit -m "xxxx"
+git git push -u origin main
