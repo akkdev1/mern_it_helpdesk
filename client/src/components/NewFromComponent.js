@@ -14,6 +14,11 @@ function NewFromComponent() {
         remark: "", status: "", itstaff: "", itnote: ""
     })
 
+    //สามารถนำ stateTicket มา *** Destrucing ลงตัวแปรได้  *****************
+    const { v_title, v_content, v_requester, v_department, v_contact,
+        v_remark, v_status, v_itstaff, v_itnote } = stateTicket
+
+
     // Function ตรวจจับ Event OnChange ในแบบฟอร์มแล้ว Set ค่าให้ State Type Object 
     const checkInput = input_name => event => {
         console.log(input_name, '=', event.target.value)

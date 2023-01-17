@@ -26,34 +26,34 @@ const LoginComponent = () => {
 
     //===============================VIEW=============================
     return (
+
         <div className="container p-5">
-            <div className="container p-5">
-                <NavbarComponent />
-                <h1>เข้าสู่ระบบ | LogIn</h1>
-                <hr></hr>
-                {JSON.stringify(stateLogin)}
-                <hr></hr>
-                <form>
-                    {/* <form onSubmit={submitForm}> */}
-                    <div className="form-group">
-                        <label>UserName</label>
-                        <input type="text" className="form-control" value={v_username}
-                            onChange={checkInput("username")} />
-                    </div>
+            <NavbarComponent />
+            <h2>เข้าสู่ระบบ | LogIn IT Helpdesk</h2>
+            <hr></hr>
+            {/* {JSON.stringify(stateLogin)} */}
+            <hr></hr>
+            <form>
+                {/* <form onSubmit={submitForm}> */}
+                <div className="form-group">
+                    <label>Username</label>
+                    <input type="text" className="form-control" value={v_username}
+                        onChange={checkInput("username")} />
+                </div>
 
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" className="form-control" value={v_password}
-                            onChange={checkInput("password")}
-                        />
-                    </div>
+                <div className="form-group">
+                    <label>Password</label>
+                    <input type="password" className="form-control" value={v_password}
+                        onChange={checkInput("password")}
+                    />
+                </div>
 
-                    <input type="submit" className="btn btn-success mr-1" value="ส่งปัญหา | Submit Ticket" />
-                    {/* <input type="#" className="btn btn-primary mr-1" defaultValue="เคลียร์ฟอร์ม | Reset" onClick={clearForm} /> */}
+                <input type="submit" className="btn btn-success mr-1" value="เข้าสู่ระบบ | LogIn" />
+                {/* <input type="#" className="btn btn-primary mr-1" defaultValue="เคลียร์ฟอร์ม | Reset" onClick={clearForm} /> */}
 
-                </form>
-            </div>
+            </form>
         </div>
+
     )
 }
 
