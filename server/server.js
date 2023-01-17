@@ -4,6 +4,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const app = express()
 const ticketsRoute = require('./routes/ticketsRoute')
+const authRoute = require('./routes/authRoute')
 require("dotenv").config()
 
 
@@ -36,6 +37,7 @@ app.use(morgan("dev")) //ให้บริการดักตัว Request
 //Route
 //เรียกใช้ route ////////////////////////////////////
 app.use('/api', ticketsRoute);
+app.use('/api', authRoute);
 app.get("*", (req, res) => {
     res.json(
         {
