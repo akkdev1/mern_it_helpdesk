@@ -10,9 +10,15 @@ export const NavbarComponent = () => {
                 <li className='nav-item pr-3 pt-3 pb-3'>
                     <Link to="/" className='nav-link'>หน้าแรก | Home</Link>
                 </li>
+
                 <li className='nav-item pr-3 pt-3 pb-3'>
                     <Link to="/create" className='nav-link'>แจ้งปัญหา | Create Ticket</Link>
                 </li>
+
+                <li className='nav-item pr-3 pt-3 pb-3'>
+                    <Link to="/login" className='nav-link'>เข้าสู่ระบบ | Log In</Link>
+                </li>
+
 
             </ul>
         </nav>
