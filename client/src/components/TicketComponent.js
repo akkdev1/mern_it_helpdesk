@@ -14,13 +14,16 @@ const TicketComponent = () => {
     //สร้างตัวแปร TicketState
     const [stateTicket, setStateTicket] = useState("")
 
-    //----------------------API-----------------------------
+    //<<<--------------------API----------------------------->>>>>>
     useEffect(() => {
+
+        // ------GET ค่า Path ตามที่กำหนดไว้ใน NODE JS BackEnd-------------
         axios
-            //ยิง API------GET Path ตามที่กำหนดไว้ใน NODE JS BackEnd----------------------------------------
             .get(`${process.env.REACT_APP_API}/tickets/${param.slug}`)
+
             // Data response Set ลงตัวแปร State..
             .then(api_res_data => { setStateTicket(api_res_data.data) })
+            // จับ Error 
             .catch(err => alert(err))
 
         // การ Scroll ไปบนสุด
