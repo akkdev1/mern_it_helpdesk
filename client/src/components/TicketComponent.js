@@ -31,8 +31,6 @@ const TicketComponent = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
-
     //---------------  การ  Confirm & Remove ---------------------------------------
     // Auto Redirect : เรียกใช้หลังมีการ Submit Form 
     const navigate = useNavigate()

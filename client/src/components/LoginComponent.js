@@ -2,8 +2,9 @@ import React from 'react'
 import { useState } from "react"
 import { NavbarComponent } from "./NavbarComponent"
 import Swal from 'sweetalert2'
-//import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from "axios";
+import { authenticate } from "../services/authService";
 
 const LoginComponent = () => {
     //สรา้ง State ในรูปแบบ "Object" เพื่อรับค่าจาก Form ในรูปแบบ Object (กำหนดค่าเริ่มต้นเป็น Null)
@@ -33,19 +34,24 @@ const LoginComponent = () => {
             .post(`${process.env.REACT_APP_API}/login`, { username, password })
 
             // OK  -> Res 
-            .then(res => {
-                console.log(res.data)
-                Swal.fire('Welcome', res.data.message, 'success')
+            .then(response => {
+                console.log(response.data)
+                Swal.fire('Welcome', response.data.message, 'success')
+                authenticate(response, () => navigate('/create'))
             })
             // Error  -> Alert
             .catch(err => {
                 console.log(err.response.data.error)
                 //alert(err.response.data.error) 
                 Swal.fire({
-                    icon: 'error', title: 'Oops...', text: err.response.data.error, footer: '<a href="">Why do I have this issue?</a>'
+                    icon: 'error', title: 'Oops...', text: err.response.data.error
                 })
             })
     }
+
+    // Auto Redirect : เรียกใช้หลัง ทำการ Login และ เก็บตัวแปร Session
+    const navigate = useNavigate()
+
 
     //===============================VIEW=============================
     return (

@@ -9,10 +9,10 @@ exports.Login = (req, res) => {
     //ตรวจสอบข้อมูลการ Login (username , password) 
 
     if (!(username === process.env.USER_NAME)) {
-        res.status(400).json({ error: "ป้อน Username ผิด !!" })
+        res.status(401).json({ error: "ป้อน Username ผิด !!" })
     }
     else if (!(password === process.env.PASSWORD)) {
-        return res.status(400).json({ error: "ป้อน Password ผิด !!" })
+        return res.status(401).json({ error: "ป้อน Password ผิด !!" })
     } else {
 
         // สร้าง TOKEN ด้วย username กำหนด Expired 1 วัน  => ส่งไปให้ Front End
