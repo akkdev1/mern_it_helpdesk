@@ -5,6 +5,7 @@ import { NavbarComponent } from "./NavbarComponent"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import Swal from 'sweetalert2'
+import { getUser } from "../services/authService"
 
 
 const TicketComponent = () => {
@@ -97,12 +98,19 @@ const TicketComponent = () => {
                 <textarea rows="3" disabled className="form-control"
                     value={stateTicket.itnote} />
             </p>
-            <Link className="btn btn-outline-success"
-                to={`/tickets/update/${stateTicket.slug}`}>Update | Edit</Link> &nbsp;
 
+            {
+                getUser() && (<Link className="btn btn-outline-success"
+                    to={`/tickets/update/${stateTicket.slug}`}>Update | Edit</Link>)
 
-            <button className="btn btn-outline-danger"
-                onClick={() => confirmDelete(stateTicket.slug)}>Remove Ticket</button>
+            }
+            <>&nbsp;</>
+            {
+                getUser() && (
+                    <button className="btn btn-outline-danger"
+                        onClick={() => confirmDelete(stateTicket.slug)}>Remove Ticket</button>)
+
+            }
             <hr></hr>
         </div >
 
