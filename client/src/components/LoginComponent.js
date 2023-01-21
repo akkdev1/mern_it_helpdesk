@@ -31,7 +31,7 @@ const LoginComponent = () => {
         //<<---------------AXIOS API -------------------->>>
         //<<---------------POST ข้อมูล Login -------------------->>> 
         axios
-            .post(`${process.env.REACT_APP_API}/login`, { username, password })
+            .post(`${process.env.REACT_APP_API_A}/login`, { username, password })
 
             // If get response OK  -> Res  -> Redirect
             .then(response => {

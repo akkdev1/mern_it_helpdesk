@@ -5,7 +5,9 @@ const mongoose = require("mongoose")
 const app = express()
 const ticketsRoute = require('./routes/ticketsRoute')
 const authRoute = require('./routes/authRoute')
+const allRoute = require('./routes/allRoute')
 require("dotenv").config()
+const { expressjwt: jwt } = require('express-jwt');//ใช้ตรวจสอบ Token    
 
 
 //console.log(process.env)
@@ -26,9 +28,6 @@ mongoose.connect(process.env.CONNECT_DB, {
 
 
 //Middle ware ----------------------------------------------------------------
-// app.use(express.json())
-// app.use(cors)
-// app.use(morgan("dev"))
 
 app.use(express.json())  // ให้บริการ json กลับไป เป็นการให้บริการข้อมูล json ของ Server
 app.use(cors()) // ให้บริการ json
@@ -36,8 +35,20 @@ app.use(morgan("dev")) //ให้บริการดักตัว Request
 
 //Route
 //เรียกใช้ route ////////////////////////////////////
-app.use('/api', ticketsRoute);
-app.use('/api', authRoute);
+app.use('/api',
+    //ตรวจสอบ Token ที่เกี่ยวกับ API ========================
+    jwt({
+        secret: process.env.JWT_SECRET,
+        algorithms: ["HS256"],
+        userProperty: "auth"
+    }),
+    ticketsRoute);
+
+
+app.use('/auth', authRoute);
+
+app.use('/all', allRoute);
+
 app.get("*", (req, res) => {
     res.json(
         {

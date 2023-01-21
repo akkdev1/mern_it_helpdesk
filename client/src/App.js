@@ -19,7 +19,7 @@ function App() {
   const fetchAllTickets = () => {
 
     //2-1 ยิง API------GET Path ตามที่กำหนดไว้ใน NODE JS BackEnd-----------------------
-    axios.get(`${process.env.REACT_APP_API}/tickets`)
+    axios.get(`${process.env.REACT_APP_API_ALL}/tickets`)
 
       //2-2 Data response Set ลงตัวแปร State
       .then(response => {

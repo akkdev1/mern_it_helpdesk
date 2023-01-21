@@ -1,4 +1,6 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken") //ใช้สรา้ง Token
+//const { expressjwt: jwt } = require('express-jwt');//ใช้ตรวจสอบ Token 
+
 
 exports.Login = (req, res) => {
 
@@ -24,3 +26,10 @@ exports.Login = (req, res) => {
         })
     }
 }
+
+//ฟังก์ชั่นตรวจสอบ Token  นำไปใช้เป็น Middle Ware ใน ticketRoute
+// exports.requireLogin = jwt({
+//     secret: process.env.JWT_SECRET,
+//     algorithms: ["HS256"],
+//     userProperty: "auth"
+// })

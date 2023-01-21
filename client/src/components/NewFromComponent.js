@@ -4,19 +4,20 @@ import { NavbarComponent } from "./NavbarComponent"
 import axios from "axios";
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom"
+import { getUser, getToken } from '../services/authService';
 
 
 function NewFromComponent() {
 
     //สรา้ง State ในรูปแบบ "Object" เพื่อรับค่าจาก Form ในรูปแบบ Object (กำหนดค่าเริ่มต้นเป็น Null)
     const [stateTicket, setStateTicket] = useState({
-        title: "", content: "", requester: "", department: "", contact: "",
+        title: "", content: "", requester: getUser(), department: "", contact: "",
         remark: "", status: "", itstaff: "", itnote: ""
     })
 
     //สามารถนำ stateTicket มา *** Destrucing ลงตัวแปรได้  *****************
-    const { v_title, v_content, v_requester, v_department, v_contact,
-        v_remark, v_status, v_itstaff, v_itnote } = stateTicket
+    // const { v_title, v_content, v_requester, v_department, v_contact,
+    //     v_remark, v_status, v_itstaff, v_itnote } = stateTicket
 
 
     // Function ตรวจจับ Event OnChange ในแบบฟอร์มแล้ว Set ค่าให้ State Type Object 
@@ -44,19 +45,7 @@ function NewFromComponent() {
     const submitForm = (event) => {
         event.preventDefault();
 
-        // DEBUG Stage ----------------------------------
-        // console.table({
-        //     title: stateTicket.title,
-        //     content: stateTicket.content,
-        //     requester: stateTicket.requester,
-        //     department: stateTicket.department,
-        //     contact: stateTicket.contact,
-        //     remark: stateTicket.remark,
-        // })
-        // Debug ตรวจสอบค่า API URL ในไฟล์ .env
-        //console.log("API URL", process.env.REACT_APP_API) ต้องเปิด-ปิด server 
-
-        //-------ยิงข้อมูล API  เพื่อบันทึกข้อมูลลง MongoDB----------------------------------------
+        //-<<<<<<<< ---ยิงข้อมูล API  เพื่อบันทึกข้อมูลลง MongoDB------------>>>>>>>>>>>>>>
 
         axios.post(`${process.env.REACT_APP_API}/create`,
             {
@@ -70,7 +59,14 @@ function NewFromComponent() {
                 // itstaff: stateTicket.itstaff,
                 // itnote: stateTicket.itnote,
 
-            })
+            },
+            // ยืนยัน Token กลับไปยัง Server  เพื่อบันทึกข้อมูล โดยใส่ไว้ใน headers
+            {
+                headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+            }
+        )
             .then(response => {
                 //alert("บันทึกข้อมูลเรียบร้อย") 
                 Swal.fire('Ticket Created!', 'แจ้งปัญหาเรียบร้อย', 'success')

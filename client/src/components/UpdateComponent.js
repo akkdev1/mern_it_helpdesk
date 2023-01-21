@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
+import { getToken } from '../services/authService';
 
 const UpdateComponent = () => {
 
@@ -21,10 +22,17 @@ const UpdateComponent = () => {
 
         //3-1 ยิง API ครั้งที่ 1 เพื่อดึงข้อมูลปัจจุบัน 
         axios
-            .get(`${process.env.REACT_APP_API}/tickets/${param.slug}`)
-
+            .get(`${process.env.REACT_APP_API}/tickets/${param.slug}`,
+                // ยืนยัน Token กลับไปยัง Server  เพื่อบันทึกข้อมูล โดยใส่ไว้ใน headers
+                {
+                    headers: {
+                        authorization: `Bearer ${getToken()}`
+                    }
+                }
+            )
             //3-2 Data response Set ลงตัวแปร stateTicket
             .then(api_res_data => { setStateTicket(api_res_data.data) })
+
             .catch(err => alert(err))
 
         // การ Scroll ไปบนสุด
@@ -127,7 +135,7 @@ const UpdateComponent = () => {
         event.preventDefault();
         const slug = param.slug
 
-        //-------ยิงข้อมูล API  เพื่อบันทึกข้อมูลลง MongoDB----------------------------------------
+        //-<<<----ยิงข้อมูล API  เพื่อบันทึกข้อมูลลง MongoDB===========>>>>>>>>>>>>
 
         axios.put(`${process.env.REACT_APP_API}/tickets/update/${slug}`,
             {
@@ -140,7 +148,14 @@ const UpdateComponent = () => {
                 status: stateTicket.status,
                 itstaff: stateTicket.itstaff,
                 itnote: stateTicket.itnote,
-            })
+            },
+            // ยืนยัน Token :Bearer กลับไปยัง Server  เพื่อบันทึกข้อมูล โดยใส่ไว้ใน headers
+            {
+                headers: {
+                    authorization: `Bearer ${getToken()}`
+                }
+            }
+        )
             .then(response => {
 
                 //alert("บันทึกข้อมูลเรียบร้อย") 

@@ -5,7 +5,7 @@ import { NavbarComponent } from "./NavbarComponent"
 import { useState, useEffect } from "react"
 import axios from "axios";
 import Swal from 'sweetalert2'
-import { getUser } from "../services/authService"
+import { getUser, getToken } from "../services/authService"
 
 
 const TicketComponent = () => {
@@ -20,8 +20,15 @@ const TicketComponent = () => {
 
         // ------GET ค่า Path ตามที่กำหนดไว้ใน NODE JS BackEnd-------------
         axios
-            .get(`${process.env.REACT_APP_API}/tickets/${param.slug}`)
+            .get(`${process.env.REACT_APP_API}/tickets/${param.slug}`,
 
+                // ยืนยัน Token กลับไปยัง Server  เพื่อบันทึกข้อมูล โดยใส่ไว้ใน headers
+                {
+                    headers: {
+                        authorization: `Bearer ${getToken()}`
+                    }
+                }
+            )
             // Data response Set ลงตัวแปร State..
             .then(api_res_data => { setStateTicket(api_res_data.data) })
             // จับ Error 
@@ -51,11 +58,18 @@ const TicketComponent = () => {
             })
     }
 
-    //3-2 ยิง API Delete Data ไป Back End ---------------------------
+    //3-2 << ========== ยิง API Delete data------------------>>>>>>>>>>>>>>
     const performRemove = (slug) => {
 
         axios
-            .delete(`${process.env.REACT_APP_API}/tickets/${slug}`)
+            .delete(`${process.env.REACT_APP_API}/tickets/${slug}`,
+                // ยืนยัน Token กลับไปยัง Server  เพื่อบันทึกข้อมูล โดยใส่ไว้ใน headers
+                {
+                    headers: {
+                        authorization: `Bearer ${getToken()}`
+                    }
+                }
+            )
             .then(response => {
                 Swal.fire({ icon: 'success', title: response.data.message, })
                 //fetchAllTickets();
