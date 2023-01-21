@@ -24,7 +24,7 @@ const LoginComponent = () => {
         setStateLogin({ ...stateLogin, [input_name]: event.target.value })
     }
 
-    // ตรวจสอบการ Login 
+    // การ Login 
     const submitForm = (event) => {
         event.preventDefault()
 
@@ -33,7 +33,7 @@ const LoginComponent = () => {
         axios
             .post(`${process.env.REACT_APP_API}/login`, { username, password })
 
-            // OK  -> Res 
+            // If get response OK  -> Res  -> Redirect
             .then(response => {
                 console.log(response.data)
                 Swal.fire('Welcome', response.data.message, 'success')
